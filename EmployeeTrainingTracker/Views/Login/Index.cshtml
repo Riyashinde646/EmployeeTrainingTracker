@@ -1,0 +1,40 @@
+﻿@model EmployeeTrainingTracker.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "loginForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+
+    <br />
+
+    <div>
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+    </div>
+
+    <br />
+
+    if (ViewBag.Error != null)
+    {
+        <p class="text-danger">@ViewBag.Error</p>
+    }
+
+    <button type="submit">Login</button>
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

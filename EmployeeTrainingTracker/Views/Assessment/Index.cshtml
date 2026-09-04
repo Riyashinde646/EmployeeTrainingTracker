@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Assessment";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <h2>Assessments</h2>
+
+        <hr />
+
+        <table id="assessmentGrid"></table>
+        <div id="assessmentPager"></div>
+
+    </div>
+
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/Assessment.js"></script>
+}
