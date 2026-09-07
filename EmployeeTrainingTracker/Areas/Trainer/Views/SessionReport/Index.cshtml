@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Session Reports";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <h2>Session Reports</h2>
+
+        <hr />
+
+        <table id="sessionGrid"></table>
+        <div id="sessionPager"></div>
+
+    </div>
+
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/TrainerSessionReport.js"></script>
+}

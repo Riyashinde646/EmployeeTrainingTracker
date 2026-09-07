@@ -84,11 +84,12 @@
                 Assessments
             </a>
 
-                <a href="@Url.Action("Index", "TrainerSessionReport")"
-                   class="@(ViewContext.RouteData.Values["controller"].ToString() == "TrainerSessionReport" ? "active" : "")">
-                    <span class="glyphicon glyphicon-stats"></span>
-                    Session Reports
-                </a>
+            <a href="@Url.Action("Index", "TrainerSessionReport", new { area = "Trainer" })"
+               class="@(ViewContext.RouteData.Values["controller"].ToString() == "TrainerSessionReport" ? "active" : "")">
+
+                <span class="glyphicon glyphicon-stats"></span>
+                Session Reports
+            </a>
 
                 <br />
 

@@ -81,5 +81,7 @@ namespace EmployeeTrainingTracker.Areas.Trainer.Controllers
                 message = "Assessment submitted successfully."
             });
         }
+
+
     }
 }

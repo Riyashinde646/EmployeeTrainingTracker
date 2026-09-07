@@ -61,6 +61,8 @@ namespace EmployeeTrainingTracker.Controllers
                 EndTime = model.EndTime
             });
 
+            trainingDAL.CreateSession(scheduleId);
+
             trainingDAL.SaveScheduleSubTopics(scheduleId, model.SubTopicIds);
 
             trainingDAL.SaveTrainingTrainees(scheduleId, model.TraineeIds);

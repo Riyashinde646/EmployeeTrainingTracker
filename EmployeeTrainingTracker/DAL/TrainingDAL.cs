@@ -123,6 +123,23 @@ namespace EmployeeTrainingTracker.DAL
             return scheduleId;
         }
 
+        public void CreateSession(int scheduleId)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO [Session] " +
+                    "(ScheduleId, SessionDone, SessionFeedback, Resources) " +
+                    "VALUES (@ScheduleId, 0, NULL, NULL)", con);
+
+                cmd.Parameters.AddWithValue("@ScheduleId", scheduleId);
+
+                con.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
 
         public void SaveScheduleSubTopics(int scheduleId, List<int> subTopicIds)
         {

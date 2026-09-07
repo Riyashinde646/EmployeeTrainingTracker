@@ -137,6 +137,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Trainer\Controllers\TrainerDashboardController.cs" />
+    <Compile Include="Areas\Trainer\Controllers\TrainerSessionReportController.cs" />
     <Compile Include="Areas\Trainer\TrainerAreaRegistration.cs" />
     <Compile Include="Controllers\AssessmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -189,6 +190,8 @@
     <Content Include="Areas\Trainer\Views\TrainerDashboard\MySessions.cshtml" />
     <Content Include="Areas\Trainer\Views\TrainerDashboard\TrainingPlan.cshtml" />
     <Content Include="Areas\Trainer\Views\TrainerDashboard\Assessments.cshtml" />
+    <Content Include="Areas\Trainer\Views\SessionReport\Index.cshtml" />
+    <Content Include="Areas\Trainer\Views\TrainerSessionReport\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -204,6 +207,7 @@
     <Content Include="Scripts\SessionReport.js" />
     <Content Include="Scripts\trainee.js" />
     <Content Include="Scripts\trainer.js" />
+    <Content Include="Scripts\TrainerSessionReport.js" />
     <Content Include="Scripts\Training.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

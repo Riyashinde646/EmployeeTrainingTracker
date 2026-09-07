@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿
+
+$(document).ready(function () {
 
     $("#sessionGrid").jqGrid({
         url: "/SessionReport/GetSessionReports",
@@ -36,7 +38,17 @@
             {
                 name: "Resources",
                 label: "Resources",
-                width: 200
+                width: 150,
+                formatter: function (cellValue) {
+
+                    if (!cellValue) {
+                        return "";
+                    }
+
+                    return "<a href='" + cellValue + "' target='_blank' " +
+                        "class='btn btn-sm btn-primary'>" +
+                        "View Resource</a>";
+                }
             },
             {
                 name: "SessionId",

@@ -7,6 +7,13 @@
         colModel: [
 
             {
+                name: "TrainerName",
+                label: "Trainer",
+                width: 120
+            },
+
+
+            {
                 name: "TraineeName",
                 label: "Trainee",
                 width: 120

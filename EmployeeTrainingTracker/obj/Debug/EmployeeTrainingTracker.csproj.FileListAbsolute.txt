@@ -1,3 +1,4 @@
+C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\obj\Debug\EmployeeTrainingTracker.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\bin\EmployeeTrainingTracker.dll.config
 C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\bin\EmployeeTrainingTracker.dll
 C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\bin\EmployeeTrainingTracker.pdb
@@ -81,7 +82,6 @@ C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\bin\
 C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\bin\Newtonsoft.Json.xml
 C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\bin\Antlr3.Runtime.pdb
 C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\obj\Debug\EmployeeTrainingTracker.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\obj\Debug\EmployeeTrainingTracker.csproj.CopyComplete
 C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\obj\Debug\EmployeeTrainingTracker.dll
 C:\Users\Admin\source\repos\EmployeeTrainingTracker\EmployeeTrainingTracker\obj\Debug\EmployeeTrainingTracker.pdb
