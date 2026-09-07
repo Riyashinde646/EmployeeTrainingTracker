@@ -129,5 +129,57 @@ namespace EmployeeTrainingTracker.DAL
 
             return trainers;
         }
+
+
+        public TrainerModel GetTrainerForLogin(string email) // for login by trainers
+        {
+            TrainerModel trainer = null;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("sp_GetTrainerLogin", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                con.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    trainer = new TrainerModel();
+
+                    trainer.TrainerID = Convert.ToInt32(reader["TrainerID"]);
+                    trainer.UserID = Convert.ToInt32(reader["UserID"]);
+                    trainer.TrainerName = reader["TrainerName"].ToString();
+                    trainer.Email = reader["Email"].ToString();
+                    trainer.Password = reader["Password"].ToString();
+                    trainer.IsActive = Convert.ToBoolean(reader["IsActive"]);
+                }
+            }
+
+            return trainer;
+        }
+
+        public DataTable GetTrainerSessions(int trainerId) // get trainer sessions for only logged in trainers 
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetTrainerSessions", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@TrainerID", trainerId);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
     }
 }

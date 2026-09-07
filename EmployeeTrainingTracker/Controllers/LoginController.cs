@@ -1,10 +1,13 @@
 ﻿using System.Web.Mvc;
 using EmployeeTrainingTracker.Models;
+using EmployeeTrainingTracker.DAL;
 
 namespace EmployeeTrainingTracker.Controllers
 {
     public class LoginController : Controller
     {
+        private TrainerDAL trainerDAL = new TrainerDAL();
+
         // GET: Login
         public ActionResult Index()
         {
@@ -21,7 +24,7 @@ namespace EmployeeTrainingTracker.Controllers
                 return View("Index", model);
             }
 
-            // hardcoded manager details
+            // Manager login
             string managerEmail = "manager@intellisource.com";
             string managerPassword = "Manager@123";
 
@@ -32,6 +35,36 @@ namespace EmployeeTrainingTracker.Controllers
                 Session["Role"] = "Manager";
 
                 return RedirectToAction("Index", "Manager");
+            }
+
+            // Trainer login
+            TrainerModel trainer = trainerDAL.GetTrainerForLogin(model.Email);
+
+            if (trainer != null)
+            {
+                if (!trainer.IsActive)
+                {
+                    ViewBag.Error = "Your account is inactive.";
+                    return View("Index", model);
+                }
+
+                bool passwordCorrect =
+                    BCrypt.Net.BCrypt.Verify(model.Password, trainer.Password);
+
+                if (passwordCorrect)
+                {
+                    Session["UserId"] = trainer.UserID;
+                    Session["TrainerId"] = trainer.TrainerID;
+                    Session["TrainerName"] = trainer.TrainerName;
+                    Session["Email"] = trainer.Email;
+                    Session["Role"] = "Trainer";
+
+                    return RedirectToAction(
+                        "Index",
+                        "TrainerDashboard",
+                        new { area = "Trainer" } //makes sure it goes to your Trainer Area, not the Manager side.
+                    );
+                }
             }
 
             ViewBag.Error = "Invalid email or password.";

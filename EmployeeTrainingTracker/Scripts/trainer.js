@@ -1,5 +1,6 @@
-﻿
-//save trainer 
+﻿// save trainer
+
+console.log("trainer.js loaded");
 
 $(document).ready(function () {
 
@@ -34,7 +35,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: '/Trainer/Save',
+            url: '/TrainerManagement/Save',
             type: 'POST',
             data: trainer,
 
@@ -62,14 +63,16 @@ $(document).ready(function () {
 
 });
 
-// update status 
+
+// update status
+
 $(document).on("click", ".btnStatus", function () {
 
     var userID = $(this).data("id");
     var status = $(this).data("status");
 
     $.ajax({
-        url: '/Trainer/UpdateStatus',
+        url: '/TrainerManagement/UpdateStatus',
         type: 'POST',
         data: {
             userID: userID,
@@ -94,13 +97,15 @@ $(document).on("click", ".btnStatus", function () {
 
 });
 
-// get user id for editing 
+
+// get trainer details for editing
+
 $(document).on("click", ".btnEdit", function () {
 
     var userID = $(this).data("id");
 
     $.ajax({
-        url: '/Trainer/GetTrainer',
+        url: '/TrainerManagement/GetTrainer',
         type: 'GET',
         data: { userID: userID },
 
@@ -114,14 +119,16 @@ $(document).on("click", ".btnEdit", function () {
             $("#editTrainerModal").modal("show");
         },
 
-        error: function () {
-            alert("Unable to load trainer details.");
+        error: function (xhr) {
+            alert("Status: " + xhr.status);
+            console.log(xhr.responseText);
         }
     });
 
 });
 
-// editing the trainer 
+
+// editing the trainer
 
 $("#btnUpdateTrainer").click(function () {
 
@@ -133,7 +140,7 @@ $("#btnUpdateTrainer").click(function () {
     };
 
     $.ajax({
-        url: '/Trainer/EditTrainer',
+        url: '/TrainerManagement/EditTrainer',
         type: 'POST',
         data: trainer,
 

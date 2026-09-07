@@ -136,14 +136,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Trainer\Controllers\TrainerDashboardController.cs" />
+    <Compile Include="Areas\Trainer\TrainerAreaRegistration.cs" />
     <Compile Include="Controllers\AssessmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\SessionReportController.cs" />
     <Compile Include="Controllers\TraineeController.cs" />
-    <Compile Include="Controllers\TrainerController.cs" />
+    <Compile Include="Controllers\TrainerManagementController.cs" />
     <Compile Include="Controllers\TrainingController.cs" />
     <Compile Include="DAL\AssessmentDAL.cs" />
+    <Compile Include="DAL\SessionReportDAL.cs" />
     <Compile Include="DAL\TraineeDAL.cs" />
     <Compile Include="DAL\TrainerDAL.cs" />
     <Compile Include="DAL\TrainingDAL.cs" />
@@ -153,6 +157,8 @@
     <Compile Include="Models\AssessmentViewModel.cs" />
     <Compile Include="Models\AssignTrainingModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PendingAssessmentViewModel.cs" />
+    <Compile Include="Models\SessionReportViewModel.cs" />
     <Compile Include="Models\Subtopic.cs" />
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\TraineeModel.cs" />
@@ -176,6 +182,13 @@
     <Content Include="Scripts\Assessment.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Trainer\Views\web.config" />
+    <Content Include="Areas\Trainer\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Trainer\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Trainer\Views\TrainerDashboard\Index.cshtml" />
+    <Content Include="Areas\Trainer\Views\TrainerDashboard\MySessions.cshtml" />
+    <Content Include="Areas\Trainer\Views\TrainerDashboard\TrainingPlan.cshtml" />
+    <Content Include="Areas\Trainer\Views\TrainerDashboard\Assessments.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -188,6 +201,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\SessionReport.js" />
     <Content Include="Scripts\trainee.js" />
     <Content Include="Scripts\trainer.js" />
     <Content Include="Scripts\Training.js" />
@@ -207,15 +221,18 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
-    <Content Include="Views\Trainer\Index.cshtml" />
+    <Content Include="Views\TrainerManagement\Index.cshtml" />
     <Content Include="Views\Trainee\Index.cshtml" />
     <Content Include="Views\Training\_OverallTrainingPlan.cshtml" />
     <Content Include="Views\Training\Index.cshtml" />
     <Content Include="Views\Shared\_ManagerLayout.cshtml" />
     <Content Include="Views\Assessment\Index.cshtml" />
+    <Content Include="Views\SessionReport\Index.cshtml" />
+    <Content Include="Views\Shared\_TrainerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Trainer\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

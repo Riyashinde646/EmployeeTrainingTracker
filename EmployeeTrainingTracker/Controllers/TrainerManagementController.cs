@@ -5,7 +5,7 @@ using EmployeeTrainingTracker.Models;
 
 namespace EmployeeTrainingTracker.Controllers
 {
-    public class TrainerController : Controller
+    public class TrainerManagementController : Controller
     {
         private TrainerDAL trainerDAL = new TrainerDAL();
 

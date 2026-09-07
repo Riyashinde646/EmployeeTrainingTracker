@@ -1,0 +1,64 @@
+﻿@model System.Data.DataTable
+
+@{
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "My Sessions";
+}
+
+<h2>My Sessions</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Topic</th>
+            <th>Subtopics</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @if (Model.Rows.Count > 0)
+        {
+            foreach (System.Data.DataRow row in Model.Rows)
+            {
+                <tr>
+                    <td>
+                        @Convert.ToDateTime(row["TrainingDate"]).ToString("dd-MMM-yyyy")
+                    </td>
+
+                    <td>
+                        @row["TopicName"]
+                    </td>
+
+                    <td>
+                        @row["SubTopics"]
+                    </td>
+
+                    <td>
+                        @row["StartTime"]
+                    </td>
+
+                    <td>
+                        @row["EndTime"]
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">
+                    No sessions assigned.
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>

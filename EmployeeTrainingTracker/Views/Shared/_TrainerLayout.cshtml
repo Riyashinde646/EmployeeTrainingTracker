@@ -61,52 +61,43 @@
 
         <div class="col-md-2 sidebar">
 
-            <h4>Manager Panel</h4>
+            <h4>Trainer Panel</h4>
 
-            <a href="@Url.Action("Index", "Manager")"
-               class="@(ViewContext.RouteData.Values["controller"].ToString() == "Manager" ? "active" : "")">
+            <a href="@Url.Action("Index", "TrainerDashboard")"
+               class="@(ViewContext.RouteData.Values["controller"].ToString() == "TrainerDashboard" ? "active" : "")">
                 <span class="glyphicon glyphicon-dashboard"></span>
                 Dashboard
             </a>
 
-            <a href="@Url.Action("Index", "Trainee")"
-               class="@(ViewContext.RouteData.Values["controller"].ToString() == "Trainee" ? "active" : "")">
-                <span class="glyphicon glyphicon-user"></span>
-                Trainees
+            <a href="@Url.Action("MySessions", "TrainerDashboard", new { area = "Trainer" })"
+               class="@(ViewContext.RouteData.Values["action"].ToString() == "MySessions" ? "active" : "")">
+                <span class="glyphicon glyphicon-calendar"></span>
+                My Sessions
             </a>
-
-            <a href="@Url.Action("Index", "TrainerManagement")"
-               class="@(ViewContext.RouteData.Values["controller"].ToString() == "Trainer" ? "active" : "")">
-                <span class="glyphicon glyphicon-education"></span>
-                Trainers
-            </a>
-
-            <a href="@Url.Action("Index", "Training")"
-               class="@(ViewContext.RouteData.Values["controller"].ToString() == "Training" ? "active" : "")">
+            <a href="@Url.Action("TrainingPlan", "TrainerDashboard", new { area = "Trainer" })"
+               class="@(ViewContext.RouteData.Values["action"].ToString() == "TrainingPlan" ? "active" : "")">
                 <span class="glyphicon glyphicon-book"></span>
-                Training
+                Training Plan
             </a>
 
-            <a href="@Url.Action("Index", "Assessment")"
-               class="@(ViewContext.RouteData.Values["controller"].ToString() == "Assessment" ? "active" : "")">
-                <span class="glyphicon glyphicon-list-alt"></span>
+            <a href="@Url.Action("Assessments", "TrainerDashboard", new { area = "Trainer" })">
                 Assessments
             </a>
 
-            <a href="@Url.Action("Index", "SessionReport")"
-               class="@(ViewContext.RouteData.Values["controller"].ToString() == "SessionReport" ? "active" : "")">
-                <span class="glyphicon glyphicon-stats"></span>
-                Session Reports
-            </a>
+                <a href="@Url.Action("Index", "TrainerSessionReport")"
+                   class="@(ViewContext.RouteData.Values["controller"].ToString() == "TrainerSessionReport" ? "active" : "")">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    Session Reports
+                </a>
 
-            <br />
+                <br />
 
-            <a href="@Url.Action("Logout", "Login")">
-                <span class="glyphicon glyphicon-log-out"></span>
-                Logout
-            </a>
+                <a href="@Url.Action("Logout", "Login")">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    Logout
+                </a>
 
-        </div>
+</div>
 
 
         <!-- Main Content -->

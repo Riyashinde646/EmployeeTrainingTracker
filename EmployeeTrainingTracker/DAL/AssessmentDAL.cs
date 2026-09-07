@@ -43,12 +43,14 @@ namespace EmployeeTrainingTracker.DAL
                     assessment.TraineeId =
                         Convert.ToInt32(dr["TraineeId"]);
 
-                    assessment.SubTopicId =
-                        Convert.ToInt32(dr["SubTopicId"]);
+                    assessment.TrainerName =
+                       dr["TrainerName"].ToString();
+
 
                     assessment.TraineeName =
                         dr["TraineeName"].ToString();
 
+                  
                     assessment.TopicName =
                         dr["TopicName"].ToString();
 
@@ -139,6 +141,104 @@ namespace EmployeeTrainingTracker.DAL
 
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public void SubmitAssessment(  
+    int scheduleId,
+    int traineeId,
+    bool assignmentDone,
+    bool testConducted,
+    int? testMarks,
+    string individualFeedback)
+        {
+            using (SqlConnection con =
+                   new SqlConnection(connectionString))
+            {
+                SqlCommand cmd =
+                    new SqlCommand("sp_SubmitAssessment", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue(
+                    "@ScheduleId", scheduleId);
+
+                cmd.Parameters.AddWithValue(
+                    "@TraineeId", traineeId);
+
+                cmd.Parameters.AddWithValue(
+                    "@AssignmentDone", assignmentDone);
+
+                cmd.Parameters.AddWithValue(
+                    "@TestConducted", testConducted);
+
+                if (testMarks.HasValue)
+                {
+                    cmd.Parameters.AddWithValue(
+                        "@TestMarks", testMarks.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue(
+                        "@TestMarks", DBNull.Value);
+                }
+
+                cmd.Parameters.AddWithValue(
+                    "@IndividualFeedback",
+                    individualFeedback ?? "");
+
+                con.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public List<PendingAssessmentViewModel> GetPendingAssessments(int trainerId)//finding who still needs an assessment so that we can show them in our Submit Assessment modal.
+        {
+            List<PendingAssessmentViewModel> assessments =
+                new List<PendingAssessmentViewModel>();
+
+            using (SqlConnection con =
+                   new SqlConnection(connectionString))
+            {
+                SqlCommand cmd =
+                          new SqlCommand("sp_GetPendingAssessments", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@TrainerId", trainerId);
+
+                con.Open();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    PendingAssessmentViewModel assessment =
+                        new PendingAssessmentViewModel();
+
+                    assessment.ScheduleId =
+                        Convert.ToInt32(dr["ScheduleId"]);
+
+                    assessment.TraineeId =
+                        Convert.ToInt32(dr["TraineeId"]);
+
+                    assessment.TrainerName =
+                        dr["TrainerName"].ToString();
+
+                    assessment.TraineeName =
+                        dr["TraineeName"].ToString();
+
+                    assessment.TopicName =
+                        dr["TopicName"].ToString();
+
+                    assessment.SubTopicName =
+                        dr["SubTopicName"].ToString();
+
+                    assessments.Add(assessment);
+                }
+            }
+
+            return assessments;
         }
     }
 }

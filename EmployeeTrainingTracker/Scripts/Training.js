@@ -259,10 +259,7 @@
         datatype: "json",
 
         colModel: [
-            {
-                name: "ScheduleId",
-                hidden: true
-            },
+         
             {
                 name: "TrainerName",
                 label: "Trainer",

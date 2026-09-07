@@ -1,0 +1,419 @@
+﻿@model List<EmployeeTrainingTracker.Models.AssessmentViewModel>
+
+@{
+    ViewBag.Title = "Assessments";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    
+    <h2>Assessments</h2>
+
+    <div style="margin-top:15px;">
+        <button type="button"
+                class="btn btn-success"
+                onclick="openSubmitAssessmentModal()">
+            + Submit Assessment
+        </button>
+    </div>
+
+    <div class="table-responsive" style="margin-top:20px;">
+
+        <table class="table table-bordered table-striped" style="background:white;">
+
+            <thead>
+                <tr style="background:#f5f5f5;">
+                    <th>Trainer</th>
+                    <th>Trainee</th>
+                    <th>Topic</th>
+                    <th>Subtopics</th>
+                    <th>Assignment Done</th>
+                    <th>Test Conducted</th>
+                    <th>Test Marks</th>
+                    <th>Individual Feedback</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.TrainerName</td>
+
+                            <td>@item.TraineeName</td>
+
+                            <td>
+                                <strong>@item.TopicName</strong>
+                            </td>
+
+                            <td>
+                                @item.SubTopicName
+                            </td>
+
+                            <td>
+                                @(item.AssignmentDone ? "Yes" : "No")
+                            </td>
+
+                            <td>
+                                @(item.TestConducted ? "Yes" : "No")
+                            </td>
+
+                            <td>
+                                @(item.TestMarks.HasValue ? item.TestMarks.Value.ToString() : "-")
+                            </td>
+
+                            <td>
+                                @item.IndividualFeedback
+                            </td>
+
+                            <td>
+                                <button type="button"
+                                        class="btn btn-primary btn-sm"
+                                        onclick="editAssessment(@item.AssessmentId)">
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="9"
+                            class="text-center"
+                            style="padding:20px;">
+                            No assessments submitted yet.
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- Submit Assessment Modal -->
+
+    <div class="modal fade" id="submitAssessmentModal" tabindex="-1">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal">
+                        &times;
+                    </button>
+
+                    <h4 class="modal-title">
+                        Submit Assessment
+                    </h4>
+
+                </div>
+
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Training Session / Trainee</label>
+
+                        <select id="assessmentSession"
+                                class="form-control">
+
+                            <option value="">
+                                Select Training Session
+                            </option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Trainer</label>
+
+                        <input type="text"
+                               id="assessmentTrainer"
+                               class="form-control"
+                               readonly />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Trainee</label>
+
+                        <input type="text"
+                               id="assessmentTrainee"
+                               class="form-control"
+                               readonly />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Topic</label>
+
+                        <input type="text"
+                               id="assessmentTopic"
+                               class="form-control"
+                               readonly />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Subtopics</label>
+
+                        <input type="text"
+                               id="assessmentSubtopics"
+                               class="form-control"
+                               readonly />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Assignment Done</label>
+
+                        <select id="assignmentDone"
+                                class="form-control">
+
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Test Conducted</label>
+
+                        <select id="testConducted"
+                                class="form-control">
+
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Test Marks</label>
+
+                        <input type="number"
+                               id="testMarks"
+                               class="form-control" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Individual Feedback</label>
+
+                        <textarea id="individualFeedback"
+                                  class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-default"
+                            data-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-primary"
+                            onclick="submitAssessment()">
+                        Submit
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+
+</div>
+
+@section Scripts
+{
+    <script>
+
+        function openSubmitAssessmentModal() {
+
+            $.ajax({
+                url: '@Url.Action("GetPendingAssessments", "TrainerDashboard", new { area = "Trainer" })',
+                type: 'GET',
+
+                success: function (data) {
+
+                    $('#assessmentSession').empty();
+
+                    $('#assessmentSession').append(
+                        '<option value="">Select Training Session</option>'
+                    );
+
+                    $.each(data, function (i, item) {
+
+                        $('#assessmentSession').append(
+                            '<option value="' +
+                            item.ScheduleId +
+                            '_' +
+                            item.TraineeId +
+                            '">' +
+                            item.TopicName +
+                            ' - ' +
+                            item.TraineeName +
+                            '</option>'
+                        );
+
+                    });
+
+                    $('#submitAssessmentModal').modal('show');
+                },
+
+                error: function () {
+
+                    alert('Unable to load pending assessments.');
+
+                }
+            });
+
+        }
+
+
+        $(document).ready(function () {
+
+            $('#assessmentSession').change(function () {
+
+                var selectedValue = $(this).val();
+
+                if (selectedValue == "") {
+
+                    $('#assessmentTrainer').val('');
+                    $('#assessmentTrainee').val('');
+                    $('#assessmentTopic').val('');
+                    $('#assessmentSubtopics').val('');
+
+                    return;
+                }
+
+                var parts = selectedValue.split('_');
+
+                var scheduleId = parts[0];
+                var traineeId = parts[1];
+
+                $.ajax({
+                    url: '@Url.Action("GetPendingAssessments", "TrainerDashboard", new { area = "Trainer" })',
+                    type: 'GET',
+
+                    success: function (data) {
+
+                        $.each(data, function (i, item) {
+
+                            if (item.ScheduleId == scheduleId &&
+                                item.TraineeId == traineeId) {
+
+                                $('#assessmentTrainer').val(item.TrainerName);
+                                $('#assessmentTrainee').val(item.TraineeName);
+                                $('#assessmentTopic').val(item.TopicName);
+                                $('#assessmentSubtopics').val(item.SubTopicName);
+
+                                return false;
+                            }
+
+                        });
+
+                    },
+
+                    error: function () {
+
+                        alert('Unable to load assessment details.');
+
+                    }
+                });
+
+            });
+
+        });
+
+
+        function submitAssessment() {
+
+    var selectedValue = $('#assessmentSession').val();
+
+    if (selectedValue == "") {
+        alert("Please select a training session.");
+        return;
+    }
+
+    var parts = selectedValue.split('_');
+
+    var scheduleId = parts[0];
+    var traineeId = parts[1];
+
+    var assignmentDone =
+        $('#assignmentDone').val() == "true";
+
+    var testConducted =
+        $('#testConducted').val() == "true";
+
+    var testMarks = $('#testMarks').val();
+
+    if (testMarks == "") {
+        testMarks = null;
+    }
+
+    var individualFeedback =
+        $('#individualFeedback').val();
+
+    $.ajax({
+
+        url: '@Url.Action("SubmitAssessment", "TrainerDashboard", new { area = "Trainer" })',
+
+        type: 'POST',
+
+        data: {
+            scheduleId: scheduleId,
+            traineeId: traineeId,
+            assignmentDone: assignmentDone,
+            testConducted: testConducted,
+            testMarks: testMarks,
+            individualFeedback: individualFeedback
+        },
+
+        success: function (response) {
+
+            if (response.success) {
+
+                alert(response.message);
+
+                $('#submitAssessmentModal').modal('hide');
+
+                location.reload();
+            }
+        },
+
+        error: function () {
+
+            alert("Unable to submit assessment.");
+        }
+    });
+}
+
+    </script>
+}
