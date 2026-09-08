@@ -1,4 +1,4 @@
-﻿$("#btnSaveTrainee").click(function () {  //save trainee button and ajax
+﻿$("#btnSaveTrainee").click(function () {  //save trainee button and ajax 
 
     $(".text-danger").text("");
 
@@ -79,7 +79,8 @@
 
 });
 
-$(".btnStatus").click(function () { // chnaging active decative status call
+
+$(document).on("click", ".btnStatus", function () {
 
     var userID = $(this).data("id");
     var isActive = $(this).data("status");
@@ -103,14 +104,19 @@ $(".btnStatus").click(function () { // chnaging active decative status call
             }
         },
 
-        error: function () {
+        error: function (xhr) {
+            console.log("Status:", xhr.status);
+            console.log("URL:", xhr.responseURL);
+            console.log(xhr.responseText);
+
             alert("Something went wrong.");
         }
     });
 
 });
 
-$(".btnEdit").click(function () { // ajax call for edit and opening the modal popup
+
+$(document).on("click", ".btnEdit", function () { // ajax call for edit and opening the modal popup 
 
     var userID = $(this).data("id");
 
@@ -139,7 +145,8 @@ $(".btnEdit").click(function () { // ajax call for edit and opening the modal po
 
 });
 
-$("#btnUpdateTrainee").click(function () { //for actualling saving changes
+
+$("#btnUpdateTrainee").click(function () { //for actually saving changes 
 
     var trainee = {
         UserID: $("#EditUserID").val(),

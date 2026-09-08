@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title - Employee Training Tracker</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
+
+    <style>
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .sidebar {
+            background-color: #2c3e50;
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+            .sidebar h4 {
+                color: white;
+                text-align: center;
+                margin-bottom: 25px;
+            }
+
+            .sidebar a {
+                display: block;
+                color: white;
+                padding: 10px 15px;
+                margin-bottom: 5px;
+                text-decoration: none;
+                border-radius: 4px;
+            }
+
+                .sidebar a:hover {
+                    background-color: #34495e;
+                }
+
+            .sidebar .active {
+                background-color: #337ab7;
+            }
+
+        .content {
+            padding: 25px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="row">
+
+        <!-- Sidebar -->
+
+        <div class="col-md-2 sidebar">
+
+            <h4>Trainee Panel</h4>
+
+
+            <!-- Dashboard -->
+
+            <a href="@Url.Action("Index", "TraineeDashboard", new { area = "Trainee" })"
+               class="@(ViewContext.RouteData.Values["controller"].ToString() == "TraineeDashboard" ? "active" : "")">
+
+                <span class="glyphicon glyphicon-dashboard"></span>
+                Dashboard
+
+            </a>
+
+
+            <!-- Training Planning -->
+
+            <a href="@Url.Action("TrainingPlanning", "TraineeDashboard", new { area = "Trainee" })"
+               class="@(ViewContext.RouteData.Values["action"].ToString() == "TrainingPlanning" ? "active" : "")">
+
+                <span class="glyphicon glyphicon-calendar"></span>
+                Training Planning
+
+            </a>
+
+
+            <!-- My Marks -->
+
+            <a href="@Url.Action("MyMarks", "TraineeDashboard", new { area = "Trainee" })"
+               class="@(ViewContext.RouteData.Values["action"].ToString() == "MyMarks" ? "active" : "")">
+
+                <span class="glyphicon glyphicon-stats"></span>
+                My Marks
+
+            </a>
+
+
+            <!-- Resources -->
+
+            <a href="@Url.Action("Resources", "TraineeDashboard", new { area = "Trainee" })"
+               class="@(ViewContext.RouteData.Values["action"].ToString() == "Resources" ? "active" : "")">
+
+                <span class="glyphicon glyphicon-book"></span>
+                Resources
+
+            </a>
+
+
+            <br />
+
+
+            <!-- Logout -->
+
+            <a href="@Url.Action("Logout", "Login")">
+
+                <span class="glyphicon glyphicon-log-out"></span>
+                Logout
+
+            </a>
+
+        </div>
+
+
+        <!-- Main Content -->
+
+        <div class="col-md-10 content">
+
+            @RenderBody()
+
+        </div>
+
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    <!-- jqGrid -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/free-jqgrid@4.15.5/css/ui.jqgrid.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/free-jqgrid@4.15.5/js/jquery.jqgrid.min.js"></script>
+
+
+    <!-- jQuery UI -->
+
+    <link rel="stylesheet"
+          href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+
+    <!-- Timepicker -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

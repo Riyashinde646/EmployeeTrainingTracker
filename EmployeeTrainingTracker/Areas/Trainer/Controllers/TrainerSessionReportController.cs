@@ -28,22 +28,15 @@ namespace EmployeeTrainingTracker.Areas.Trainer.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveSessionReport(
-    int sessionId,
-    bool sessionDone,
-    string sessionFeedback,
-    HttpPostedFileBase sessionResource)
+        public JsonResult SaveSessionReport(int sessionId, bool sessionDone, string sessionFeedback, HttpPostedFileBase sessionResource)
         {
             string resources = null;
 
             if (sessionResource != null && sessionResource.ContentLength > 0)
             {
-                string extension =
-                    Path.GetExtension(sessionResource.FileName).ToLower();
+                string extension = Path.GetExtension(sessionResource.FileName).ToLower();
 
-                if (extension != ".pdf" &&
-                    extension != ".doc" &&
-                    extension != ".docx")
+                if (extension != ".pdf" && extension != ".doc" && extension != ".docx")
                 {
                     return Json(new
                     {
@@ -52,24 +45,20 @@ namespace EmployeeTrainingTracker.Areas.Trainer.Controllers
                     });
                 }
 
-                string folderPath =
-                    Server.MapPath("~/Uploads/SessionResources/");
+                string folderPath = Server.MapPath("~/Uploads/SessionResources/");
 
                 if (!Directory.Exists(folderPath))
                 {
                     Directory.CreateDirectory(folderPath);
                 }
 
-                string fileName =
-                    Guid.NewGuid().ToString() + extension;
+                string fileName = Guid.NewGuid().ToString() + extension;
 
-                string filePath =
-                    Path.Combine(folderPath, fileName);
+                string filePath = Path.Combine(folderPath, fileName);
 
                 sessionResource.SaveAs(filePath);
 
-                resources =
-                    "/Uploads/SessionResources/" + fileName;
+                resources = "/Uploads/SessionResources/" + fileName;
             }
 
             SessionReportDAL dal = new SessionReportDAL();

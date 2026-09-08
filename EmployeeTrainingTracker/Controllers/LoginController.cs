@@ -7,7 +7,7 @@ namespace EmployeeTrainingTracker.Controllers
     public class LoginController : Controller
     {
         private TrainerDAL trainerDAL = new TrainerDAL();
-
+        private TraineeDAL traineeDAL = new TraineeDAL();
         // GET: Login
         public ActionResult Index()
         {
@@ -67,10 +67,45 @@ namespace EmployeeTrainingTracker.Controllers
                 }
             }
 
+
+            // Trainee login
+            TraineeModel trainee = traineeDAL.GetTraineeForLogin(model.Email);
+
+            if (trainee != null)
+            {
+                if (!trainee.IsActive)
+                {
+                    ViewBag.Error = "Your account is inactive.";
+                    return View("Index", model);
+                }
+
+                bool passwordCorrect =
+                    BCrypt.Net.BCrypt.Verify(model.Password, trainee.Password);
+
+                if (passwordCorrect)
+                {
+                    Session["UserId"] = trainee.UserID;
+                    Session["TraineeId"] = trainee.TraineeID;
+                    Session["TraineeName"] = trainee.TraineeName;
+                    Session["Email"] = trainee.Email;
+                    Session["Role"] = "Trainee";
+
+                    return RedirectToAction(
+                        "Index",
+                        "TraineeDashboard",
+                        new { area = "Trainee" }
+                    );
+                }
+            }
+
             ViewBag.Error = "Invalid email or password.";
 
             return View("Index", model);
+
+
         }
+
+
 
         // Logout
         public ActionResult Logout()

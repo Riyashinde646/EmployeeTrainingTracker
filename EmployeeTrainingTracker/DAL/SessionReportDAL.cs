@@ -144,5 +144,50 @@ namespace EmployeeTrainingTracker.DAL
                 }
             }
         }
+
+
+        public List<SessionReportViewModel> GetAllSessionResources() //getting all resouces 
+        {
+            List<SessionReportViewModel> reports =
+                new List<SessionReportViewModel>();
+
+            using (SqlConnection con =
+                   new SqlConnection(connectionString))
+            {
+                SqlCommand cmd =
+                    new SqlCommand("sp_GetTraineeResources", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                con.Open();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    SessionReportViewModel report =
+                        new SessionReportViewModel();
+
+                    report.SessionId =
+                        Convert.ToInt32(dr["SessionId"]);
+
+                    report.ScheduleId =
+                        Convert.ToInt32(dr["ScheduleId"]);
+
+                    report.TopicName =
+                        dr["TopicName"].ToString();
+
+                    report.SubTopicName =
+                        dr["SubTopicName"].ToString();
+
+                    report.Resources =
+                        dr["Resources"].ToString();
+
+                    reports.Add(report);
+                }
+            }
+
+            return reports;
+        }
     }
 }

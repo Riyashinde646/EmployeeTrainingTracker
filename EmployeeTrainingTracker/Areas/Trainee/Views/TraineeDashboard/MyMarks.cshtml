@@ -1,0 +1,84 @@
+﻿@model List<EmployeeTrainingTracker.Models.AssessmentViewModel>
+
+@{
+    ViewBag.Title = "My Marks";
+    Layout = "~/Views/Shared/_TraineeLayout.cshtml";
+}
+
+<h2>My Marks</h2>
+
+<table class="table table-bordered"
+       style="margin-top:20px; background:white;">
+
+    <thead>
+        <tr style="background:#f5f5f5;">
+            <th>Topic</th>
+            <th>Subtopics</th>
+            <th>Trainer</th>
+            <th>Assignment</th>
+            <th>Test</th>
+            <th>Marks</th>
+          
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        <strong>@item.TopicName</strong>
+                    </td>
+
+                    <td>
+                        @item.SubTopicName
+                    </td>
+
+                    <td>
+                        @item.TrainerName
+                    </td>
+
+                    <td>
+                        @(item.AssignmentDone ? "Completed" : "Not Completed")
+                    </td>
+
+                    <td>
+                        @(item.TestConducted ? "Conducted" : "Not Conducted")
+                    </td>
+
+                    <td>
+                        @if (item.TestMarks.HasValue)
+                        {
+                            <strong>@item.TestMarks</strong>
+                        }
+                        else
+                        {
+                            <span>Not Available</span>
+                        }
+                    </td>
+
+                  
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6"
+                    class="text-center"
+                    style="padding:20px;">
+
+                    No marks available.
+
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

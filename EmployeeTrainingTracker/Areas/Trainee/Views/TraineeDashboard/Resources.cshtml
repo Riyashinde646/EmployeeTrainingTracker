@@ -1,0 +1,62 @@
+﻿@model List<EmployeeTrainingTracker.Models.SessionReportViewModel>
+
+@{
+    ViewBag.Title = "Resources";
+    Layout = "~/Views/Shared/_TraineeLayout.cshtml";
+}
+
+<h2>Resources</h2>
+
+<table class="table table-bordered"
+       style="margin-top:20px; background:white;">
+
+    <thead>
+        <tr style="background:#f5f5f5;">
+            <th>Topic</th>
+            <th>Subtopics</th>
+            <th>Resource</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <strong>@item.TopicName</strong>
+                    </td>
+
+                    <td>
+                        @item.SubTopicName
+                    </td>
+
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Resources))
+                        {
+                            <a href="@item.Resources"
+                               target="_blank"
+                               class="btn btn-sm btn-primary">
+                                View Resource
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3"
+                    class="text-center"
+                    style="padding:20px;">
+                    No resources available.
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

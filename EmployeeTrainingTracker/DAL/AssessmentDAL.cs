@@ -79,6 +79,76 @@ namespace EmployeeTrainingTracker.DAL
             return assessments;
         }
 
+        public List<AssessmentViewModel> GetMyMarks(int traineeId)  //gettimg all marks 
+        {
+            List<AssessmentViewModel> assessments =
+                new List<AssessmentViewModel>();
+
+            using (SqlConnection con =
+                   new SqlConnection(connectionString))
+            {
+                SqlCommand cmd =
+                    new SqlCommand("sp_GetMyMarks", con);
+
+                cmd.CommandType =
+                    CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue(
+                    "@TraineeId", traineeId);
+
+                con.Open();
+
+                SqlDataReader dr =
+                    cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    AssessmentViewModel assessment =
+                        new AssessmentViewModel();
+
+                    assessment.AssessmentId =
+                        Convert.ToInt32(dr["AssessmentId"]);
+
+                    assessment.ScheduleId =
+                        Convert.ToInt32(dr["ScheduleId"]);
+
+                    assessment.TraineeId =
+                        Convert.ToInt32(dr["TraineeId"]);
+
+                    assessment.TrainerName =
+                        dr["TrainerName"].ToString();
+
+                    assessment.TraineeName =
+                        dr["TraineeName"].ToString();
+
+                    assessment.TopicName =
+                        dr["TopicName"].ToString();
+
+                    assessment.SubTopicName =
+                        dr["SubTopicName"].ToString();
+
+                    assessment.AssignmentDone =
+                        Convert.ToBoolean(dr["AssignmentDone"]);
+
+                    assessment.TestConducted =
+                        Convert.ToBoolean(dr["TestConducted"]);
+
+                    if (dr["TestMarks"] != DBNull.Value)
+                    {
+                        assessment.TestMarks =
+                            Convert.ToInt32(dr["TestMarks"]);
+                    }
+
+                    assessment.IndividualFeedback =
+                        dr["IndividualFeedback"].ToString();
+
+                    assessments.Add(assessment);
+                }
+            }
+
+            return assessments;
+        }
+
         public void CreateAssessments(int scheduleId) //Creates the assessment rows for a particular training schedule.
         {
             using (SqlConnection con =

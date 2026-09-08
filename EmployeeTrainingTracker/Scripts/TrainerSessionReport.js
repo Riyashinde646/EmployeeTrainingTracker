@@ -40,6 +40,9 @@
                 sortable: false,
                 formatter: function (cellValue, options, rowObject) {
 
+                    console.log("ROW OBJECT:", rowObject);
+                    console.log("SESSION ID:", rowObject.SessionId);
+
                     return "<button type='button' " +
                         "class='btn btn-primary btn-sm' " +
                         "onclick='openReport(" + rowObject.SessionId + ")'>" +

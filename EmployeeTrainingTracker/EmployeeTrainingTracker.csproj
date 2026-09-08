@@ -136,6 +136,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Trainee\Controllers\TraineeDashboardController.cs" />
+    <Compile Include="Areas\Trainee\TraineeAreaRegistration.cs" />
     <Compile Include="Areas\Trainer\Controllers\TrainerDashboardController.cs" />
     <Compile Include="Areas\Trainer\Controllers\TrainerSessionReportController.cs" />
     <Compile Include="Areas\Trainer\TrainerAreaRegistration.cs" />
@@ -192,6 +194,13 @@
     <Content Include="Areas\Trainer\Views\TrainerDashboard\Assessments.cshtml" />
     <Content Include="Areas\Trainer\Views\SessionReport\Index.cshtml" />
     <Content Include="Areas\Trainer\Views\TrainerSessionReport\Index.cshtml" />
+    <Content Include="Areas\Trainee\Views\web.config" />
+    <Content Include="Areas\Trainee\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Trainee\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Trainee\Views\TraineeDashboard\Index.cshtml" />
+    <Content Include="Areas\Trainee\Views\TraineeDashboard\TrainingPlanning.cshtml" />
+    <Content Include="Areas\Trainee\Views\TraineeDashboard\MyMarks.cshtml" />
+    <Content Include="Areas\Trainee\Views\TraineeDashboard\Resources.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -233,9 +242,11 @@
     <Content Include="Views\Assessment\Index.cshtml" />
     <Content Include="Views\SessionReport\Index.cshtml" />
     <Content Include="Views\Shared\_TrainerLayout.cshtml" />
+    <Content Include="Views\Shared\_TraineeLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Trainee\Data\" />
     <Folder Include="Areas\Trainer\Data\" />
   </ItemGroup>
   <ItemGroup>

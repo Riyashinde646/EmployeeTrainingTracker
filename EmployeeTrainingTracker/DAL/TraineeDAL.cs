@@ -136,6 +136,37 @@ namespace EmployeeTrainingTracker.DAL
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public TraineeModel GetTraineeForLogin(string email) //for login
+        {
+            TraineeModel trainee = null;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("sp_GetTraineeForLogin", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                con.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    trainee = new TraineeModel();
+
+                    trainee.TraineeID = Convert.ToInt32(reader["TraineeID"]);
+                    trainee.UserID = Convert.ToInt32(reader["UserID"]);
+                    trainee.TraineeName = reader["TraineeName"].ToString();
+                    trainee.Email = reader["Email"].ToString();
+                    trainee.Password = reader["Password"].ToString();
+                    trainee.IsActive = Convert.ToBoolean(reader["IsActive"]);
+                }
+            }
+
+            return trainee;
+        }
     }
 }
 
