@@ -111,6 +111,7 @@ namespace EmployeeTrainingTracker.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
+            Session.Abandon();
 
             return RedirectToAction("Index", "Login");
         }

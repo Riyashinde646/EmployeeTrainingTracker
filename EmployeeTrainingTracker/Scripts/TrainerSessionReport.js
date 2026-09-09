@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
 
     $("#sessionGrid").jqGrid({
         url: "/Trainer/TrainerSessionReport/GetSessionReports",
@@ -69,13 +70,45 @@
 });
 
 
+function showFeedback() {
+
+    $("#feedbackSection").show();
+
+    $("#reasonSection").hide();
+
+    $("#sessionReason").val("");
+}
+
+
+function showReason() {
+
+    $("#feedbackSection").hide();
+
+    $("#reasonSection").show();
+
+    $("#sessionFeedback").val("");
+}
+
+
 function openReport(sessionId) {
 
     $("#reportSessionId").val(sessionId);
 
-    $("#sessionDone").prop("checked", false);
+    // Reset Yes / No
+
+    $("input[name='sessionCompleted']").prop("checked", false);
+
+    // Reset textboxes
 
     $("#sessionFeedback").val("");
+    $("#sessionReason").val("");
+
+    // Hide both sections initially
+
+    $("#feedbackSection").hide();
+    $("#reasonSection").hide();
+
+    // Keep resource reset as it was
 
     $("#sessionResource").val("");
 
@@ -90,14 +123,52 @@ function submitReport() {
     var sessionId = $("#reportSessionId").val();
     console.log("Session ID:", sessionId);
 
-    var sessionDone = $("#sessionDone").is(":checked");
+
+    // Check whether Yes or No is selected
+
+    var selectedValue =
+        $("input[name='sessionCompleted']:checked").val();
+
+    if (!selectedValue) {
+
+        alert("Please select Yes or No.");
+
+        return;
+    }
+
+
+    var sessionDone = selectedValue === "yes";
+
     console.log("Session Done:", sessionDone);
 
-    var sessionFeedback = $("#sessionFeedback").val();
-    console.log("Feedback:", sessionFeedback);
+
+    // Get feedback if Yes
+    // Get reason if No
+
+    var sessionFeedback = "";
+
+    if (sessionDone) {
+
+        sessionFeedback = $("#sessionFeedback").val();
+
+        console.log("Feedback:", sessionFeedback);
+
+    }
+    else {
+
+        sessionFeedback = $("#sessionReason").val();
+
+        console.log("Reason:", sessionFeedback);
+
+    }
+
+
+    // Existing resource code - unchanged
 
     var file = $("#sessionResource")[0].files[0];
+
     console.log("File:", file);
+
 
     var formData = new FormData();
 
@@ -105,11 +176,14 @@ function submitReport() {
     formData.append("sessionDone", sessionDone);
     formData.append("sessionFeedback", sessionFeedback);
 
+
     if (file) {
         formData.append("sessionResource", file);
     }
 
+
     console.log("FormData created");
+
 
     $.ajax({
         url: "/Trainer/TrainerSessionReport/SaveSessionReport",
@@ -142,4 +216,6 @@ function submitReport() {
             alert("Error while saving session report.");
         }
     });
+
 }
+
