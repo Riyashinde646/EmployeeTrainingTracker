@@ -330,15 +330,21 @@
             {
                 name: "Action",
                 label: "Action",
-                width: 150,
+                width: 100,
                 align: "center",
                 formatter: function (cellvalue, options, rowObject) {
 
                     return '<button class="btn btn-sm btn-primary editTraining" ' +
-                        'data-id="' + rowObject.ScheduleId + '">Edit</button> ' +
+                        'data-id="' + rowObject.ScheduleId + '" ' +
+                        'title="Edit">' +
+                        '<i class="fa fa-pencil"></i>' +
+                        '</button> ' +
 
                         '<button class="btn btn-sm btn-danger deleteTraining" ' +
-                        'data-id="' + rowObject.ScheduleId + '">Delete</button>';
+                        'data-id="' + rowObject.ScheduleId + '" ' +
+                        'title="Delete">' +
+                        '<i class="fa fa-trash"></i>' +
+                        '</button>';
                 }
             }
         ],

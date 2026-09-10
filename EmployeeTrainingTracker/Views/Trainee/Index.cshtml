@@ -47,24 +47,27 @@
 
                 <td>
                     <button class="btn btn-warning btn-sm btnEdit"
-                            data-id="@trainee.UserID">
-                        Edit
+                            data-id="@trainee.UserID"
+                            title="Edit">
+                        <i class="fa fa-pencil"></i>
                     </button>
 
                     @if (trainee.IsActive)
                     {
                         <button class="btn btn-danger btn-sm btnStatus"
                                 data-id="@trainee.UserID"
-                                data-status="false">
-                            Deactivate
+                                data-status="false"
+                                title="Deactivate">
+                            <i class="fa fa-ban"></i>
                         </button>
                     }
                     else
                     {
                         <button class="btn btn-success btn-sm btnStatus"
                                 data-id="@trainee.UserID"
-                                data-status="true">
-                            Activate
+                                data-status="true"
+                                title="Activate">
+                            <i class="fa fa-check"></i>
                         </button>
                     }
                 </td>
