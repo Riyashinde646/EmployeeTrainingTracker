@@ -1,4 +1,30 @@
-﻿$("#btnSaveTrainee").click(function () {  //save trainee button and ajax 
+﻿
+// Common dialog message
+function showMessage(message, title, reloadPage) {
+
+    $("#messageDialog").attr("title", title);
+
+    $("#messageText").text(message);
+
+    $("#messageDialog").dialog({
+        modal: true,
+        width: 400,
+        buttons: {
+            OK: function () {
+
+                $(this).dialog("close");
+
+                if (reloadPage) {
+                    location.reload();
+                }
+            }
+        }
+    });
+}
+
+
+// Save Trainee
+$("#btnSaveTrainee").click(function () {
 
     $(".text-danger").text("");
 
@@ -61,25 +87,42 @@
         success: function (response) {
 
             if (response.success) {
-                alert(response.message);
 
                 $("#addTraineeModal").modal("hide");
 
-                location.reload();
+                showMessage(
+                    response.message,
+                    "Success",
+                    true
+                );
+
             }
             else {
-                alert(response.message);
+
+                showMessage(
+                    response.message,
+                    "Error",
+                    false
+                );
+
             }
         },
 
         error: function () {
-            alert("Something went wrong.");
+
+            showMessage(
+                "Something went wrong.",
+                "Error",
+                false
+            );
+
         }
     });
 
 });
 
 
+// Activate / Deactivate Trainee
 $(document).on("click", ".btnStatus", function () {
 
     var userID = $(this).data("id");
@@ -88,6 +131,7 @@ $(document).on("click", ".btnStatus", function () {
     $.ajax({
         url: '/Trainee/UpdateStatus',
         type: 'POST',
+
         data: {
             userID: userID,
             isActive: isActive
@@ -96,33 +140,52 @@ $(document).on("click", ".btnStatus", function () {
         success: function (response) {
 
             if (response.success) {
-                alert(response.message);
-                location.reload();
+
+                showMessage(
+                    response.message,
+                    "Success",
+                    true
+                );
+
             }
             else {
-                alert(response.message);
+
+                showMessage(
+                    response.message,
+                    "Error",
+                    false
+                );
+
             }
         },
 
         error: function (xhr) {
+
             console.log("Status:", xhr.status);
             console.log("URL:", xhr.responseURL);
             console.log(xhr.responseText);
 
-            alert("Something went wrong.");
+            showMessage(
+                "Something went wrong.",
+                "Error",
+                false
+            );
+
         }
     });
 
 });
 
 
-$(document).on("click", ".btnEdit", function () { // ajax call for edit and opening the modal popup 
+// Edit Trainee
+$(document).on("click", ".btnEdit", function () {
 
     var userID = $(this).data("id");
 
     $.ajax({
         url: '/Trainee/GetTrainee',
         type: 'GET',
+
         data: {
             userID: userID
         },
@@ -136,27 +199,38 @@ $(document).on("click", ".btnEdit", function () { // ajax call for edit and open
             $("#EditDesignation").val(trainee.Designation);
 
             $("#editTraineeModal").modal("show");
+
         },
 
         error: function () {
-            alert("Unable to get trainee details.");
+
+            showMessage(
+                "Unable to get trainee details.",
+                "Error",
+                false
+            );
+
         }
     });
 
 });
 
 
-$("#btnUpdateTrainee").click(function () { //for actually saving changes 
+// Update Trainee
+$("#btnUpdateTrainee").click(function () {
 
     var trainee = {
+
         UserID: $("#EditUserID").val(),
         TraineeName: $("#EditTraineeName").val(),
         Phone: $("#EditPhone").val(),
         Department: $("#EditDepartment").val(),
         Designation: $("#EditDesignation").val()
+
     };
 
     $.ajax({
+
         url: '/Trainee/UpdateTrainee',
         type: 'POST',
         data: trainee,
@@ -164,18 +238,39 @@ $("#btnUpdateTrainee").click(function () { //for actually saving changes
         success: function (response) {
 
             if (response.success) {
-                alert(response.message);
+
                 $("#editTraineeModal").modal("hide");
-                location.reload();
+
+                showMessage(
+                    response.message,
+                    "Success",
+                    true
+                );
+
             }
             else {
-                alert(response.message);
+
+                showMessage(
+                    response.message,
+                    "Error",
+                    false
+                );
+
             }
         },
 
         error: function () {
-            alert("Unable to update trainee.");
+
+            showMessage(
+                "Unable to update trainee.",
+                "Error",
+                false
+            );
+
         }
+
     });
 
 });
+
+
