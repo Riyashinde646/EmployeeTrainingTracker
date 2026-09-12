@@ -91,14 +91,21 @@
                 Session Reports
             </a>
 
-                <br />
-
-                <a href="@Url.Action("Logout", "Login", new { area = "" })">
-                    <span class="glyphicon glyphicon-log-out"></span>
-                    Logout
+            
+                <a href="@Url.Action("Index", "TrainerIndividualSessionFeedback", new { area = "Trainer" })">
+                    <i class="fa fa-comments"></i>
+                    <span>Individual Session Feedback</span>
                 </a>
+            
 
-</div>
+            <br />
+
+            <a href="@Url.Action("Logout", "Login", new { area = "" })">
+                <span class="glyphicon glyphicon-log-out"></span>
+                Logout
+            </a>
+
+        </div>
 
 
         <!-- Main Content -->

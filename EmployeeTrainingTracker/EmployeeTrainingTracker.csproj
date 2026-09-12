@@ -139,10 +139,12 @@
     <Compile Include="Areas\Trainee\Controllers\TraineeDashboardController.cs" />
     <Compile Include="Areas\Trainee\TraineeAreaRegistration.cs" />
     <Compile Include="Areas\Trainer\Controllers\TrainerDashboardController.cs" />
+    <Compile Include="Areas\Trainer\Controllers\TrainerIndividualSessionFeedbackController.cs" />
     <Compile Include="Areas\Trainer\Controllers\TrainerSessionReportController.cs" />
     <Compile Include="Areas\Trainer\TrainerAreaRegistration.cs" />
     <Compile Include="Controllers\AssessmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndividualSessionFeedbackController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\SessionReportController.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Controllers\TrainerManagementController.cs" />
     <Compile Include="Controllers\TrainingController.cs" />
     <Compile Include="DAL\AssessmentDAL.cs" />
+    <Compile Include="DAL\IndividualSessionFeedbackDAL.cs" />
     <Compile Include="DAL\SessionReportDAL.cs" />
     <Compile Include="DAL\TraineeDAL.cs" />
     <Compile Include="DAL\TrainerDAL.cs" />
@@ -159,6 +162,7 @@
     </Compile>
     <Compile Include="Models\AssessmentViewModel.cs" />
     <Compile Include="Models\AssignTrainingModel.cs" />
+    <Compile Include="Models\IndividualSessionFeedbackModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PendingAssessmentViewModel.cs" />
     <Compile Include="Models\SessionReportViewModel.cs" />
@@ -201,6 +205,7 @@
     <Content Include="Areas\Trainee\Views\TraineeDashboard\TrainingPlanning.cshtml" />
     <Content Include="Areas\Trainee\Views\TraineeDashboard\MyMarks.cshtml" />
     <Content Include="Areas\Trainee\Views\TraineeDashboard\Resources.cshtml" />
+    <Content Include="Areas\Trainer\Views\TrainerIndividualSessionFeedback\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -243,6 +248,7 @@
     <Content Include="Views\SessionReport\Index.cshtml" />
     <Content Include="Views\Shared\_TrainerLayout.cshtml" />
     <Content Include="Views\Shared\_TraineeLayout.cshtml" />
+    <Content Include="Views\IndividualSessionFeedback\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

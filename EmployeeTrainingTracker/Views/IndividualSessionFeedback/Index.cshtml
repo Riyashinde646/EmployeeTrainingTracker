@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Individual Session Feedback";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+}
+
+<h2>Individual Session Feedback</h2>
+
+<table id="individualFeedbackGrid"></table>
+<div id="individualFeedbackPager"></div>
+
+@section Scripts {
+
+    <script>
+
+    $(document).ready(function () {
+
+        $("#individualFeedbackGrid").jqGrid({
+
+            url: '@Url.Action("GetIndividualFeedback", "IndividualSessionFeedback")',
+
+            datatype: "json",
+
+            mtype: "GET",
+
+            colNames: [
+
+                "Trainer",
+                "Trainee",
+                "Topic",
+                "Sub Topics",
+                "Training Date",
+                "Completed",
+                "Individual Feedback"
+
+            ],
+
+            colModel: [
+
+                {
+                    name: "TrainerName",
+                    width: 140
+                },
+
+                {
+                    name: "TraineeName",
+                    width: 140
+                },
+
+                {
+                    name: "TopicName",
+                    width: 130
+                },
+
+                {
+                    name: "SubTopics",
+                    width: 300
+                },
+
+                {
+                    name: "TrainingDate",
+                    width: 120,
+
+                    formatter: "date",
+
+                    formatoptions: {
+
+                        srcformat: "ISO8601Long",
+                        newformat: "d-m-Y"
+
+                    }
+                },
+
+                {
+                    name: "SessionCompleted",
+                    width: 100,
+                    align: "center",
+
+                    formatter: function (cellvalue) {
+
+                        if (cellvalue === true ||
+                            cellvalue === "true") {
+
+                            return '<span class="label label-success">' +
+                                '<i class="fa fa-check"></i> Yes' +
+                                '</span>';
+
+                        }
+
+                        return '<span class="label label-danger">' +
+                            '<i class="fa fa-times"></i> No' +
+                            '</span>';
+
+                    }
+
+                },
+
+                {
+                    name: "Feedback",
+                    width: 300
+                }
+
+            ],
+
+            height: "auto",
+
+            rowNum: 10,
+
+            pager: "#individualFeedbackPager",
+
+            autowidth: true,
+
+            shrinkToFit: true,
+
+            viewrecords: true,
+
+            loadonce: true
+
+        });
+
+    });
+
+    </script>
+    
+
+}

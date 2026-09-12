@@ -1,0 +1,488 @@
+﻿@{
+    ViewBag.Title = "Individual Session Feedback";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<h2>Individual Session Feedback</h2>
+
+<table id="individualFeedbackGrid"></table>
+<div id="individualFeedbackPager"></div>
+
+<!-- Give Feedback Modal -->
+
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog">
+
+    ```
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal">
+                    &times;
+                </button>
+
+                <h4 class="modal-title">
+                    Give Individual Feedback
+                </h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <input type="hidden" id="FeedbackSessionId" />
+                <input type="hidden" id="FeedbackTraineeId" />
+
+                <div class="form-group">
+
+                    <label>Trainee</label>
+
+                    <input type="text"
+                           id="FeedbackTraineeName"
+                           class="form-control"
+                           readonly />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Session Completed</label>
+
+                    <div>
+
+                        <label class="radio-inline">
+
+                            <input type="radio"
+                                   name="SessionCompleted"
+                                   value="true">
+
+                            Yes
+
+                        </label>
+
+                        <label class="radio-inline">
+
+                            <input type="radio"
+                                   name="SessionCompleted"
+                                   value="false">
+
+                            No
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Individual Feedback</label>
+
+                    <textarea id="IndividualFeedback"
+                              class="form-control"
+                              rows="5"
+                              maxlength="1000"
+                              placeholder="Enter feedback for this trainee"></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-default"
+                        data-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button type="button"
+                        id="btnSaveIndividualFeedback"
+                        class="btn btn-primary">
+
+                    <i class="fa fa-save"></i>
+                    Save Feedback
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    ```
+
+</div>
+
+<!-- Message Modal -->
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog">
+
+    ```
+    <div class="modal-dialog modal-sm" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal">
+                    &times;
+                </button>
+
+                <h4 class="modal-title" id="messageTitle">
+                    Message
+                </h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p id="messageText"></p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-primary"
+                        data-dismiss="modal">
+
+                    <i class="fa fa-check"></i>
+                    OK
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    ```
+
+</div>
+
+@section Scripts {
+
+    ```
+    <script>
+
+    // Show Message Dialog
+
+    function showMessage(title, message) {
+
+        $("#messageTitle").text(title);
+        $("#messageText").text(message);
+
+        $("#messageModal").modal("show");
+
+    }
+
+
+    $(document).ready(function () {
+
+
+        // Load Individual Session Feedback Grid
+
+        $("#individualFeedbackGrid").jqGrid({
+
+            url: '@Url.Action("GetIndividualFeedback", "TrainerIndividualSessionFeedback", new { area = "Trainer" })',
+
+            datatype: "json",
+
+            mtype: "GET",
+
+            colNames: [
+
+                "Session ID",
+                "Trainee ID",
+                "Trainee",
+                "Topic",
+                "Sub Topics",
+                "Training Date",
+                "Action"
+
+            ],
+
+            colModel: [
+
+                {
+                    name: "SessionId",
+                    hidden: true
+                },
+
+                {
+                    name: "TraineeId",
+                    hidden: true
+                },
+
+                {
+                    name: "TraineeName",
+                    width: 150
+                },
+
+                {
+                    name: "TopicName",
+                    width: 130
+                },
+
+                {
+                    name: "SubTopics",
+                    width: 300
+                },
+
+                {
+                    name: "TrainingDate",
+                    width: 120,
+
+                    formatter: "date",
+
+                    formatoptions: {
+
+                        srcformat: "ISO8601Long",
+                        newformat: "d-m-Y"
+
+                    }
+                },
+
+                {
+                    name: "Action",
+
+                    width: 130,
+
+                    align: "center",
+
+                    sortable: false,
+
+                    formatter: function (cellvalue, options, rowObject) {
+
+                        var buttonText = rowObject.HasFeedback
+                            ? "Edit Feedback"
+                            : "Give Feedback";
+
+                        var icon = rowObject.HasFeedback
+                            ? "fa-pencil"
+                            : "fa-comment";
+
+                        var buttonClass = rowObject.HasFeedback
+                            ? "btn-primary"
+                            : "btn-success";
+
+                        return '<button class="btn ' + buttonClass + ' btn-sm giveFeedback" ' +
+
+                            'data-sessionid="' + rowObject.SessionId + '" ' +
+
+                            'data-traineeid="' + rowObject.TraineeId + '" ' +
+
+                            'data-traineename="' + rowObject.TraineeName + '" ' +
+
+                            'data-hasfeedback="' + rowObject.HasFeedback + '" ' +
+
+                            'data-completed="' + rowObject.SessionCompleted + '" ' +
+
+                            'data-feedback="' +
+
+                            $('<div>').text(rowObject.Feedback).html() +
+
+                            '" ' +
+
+                            'title="' + buttonText + '">' +
+
+                            '<i class="fa ' + icon + '"></i> ' +
+
+                            buttonText +
+
+                            '</button>';
+
+                    }
+
+                }
+
+            ],
+
+            height: "auto",
+
+            rowNum: 10,
+
+            pager: "#individualFeedbackPager",
+
+            autowidth: true,
+
+            shrinkToFit: true,
+
+            viewrecords: true,
+
+            loadonce: true
+
+        });
+
+    });
+
+
+    // Open Give/Edit Feedback Modal
+
+    $(document).on("click", ".giveFeedback", function () {
+
+        var sessionId =
+            $(this).data("sessionid");
+
+        var traineeId =
+            $(this).data("traineeid");
+
+        var traineeName =
+            $(this).data("traineename");
+
+        var hasFeedback =
+            $(this).data("hasfeedback");
+
+        var completed =
+            $(this).data("completed");
+
+        var feedback =
+            $(this).attr("data-feedback");
+
+
+        $("#FeedbackSessionId").val(sessionId);
+
+        $("#FeedbackTraineeId").val(traineeId);
+
+        $("#FeedbackTraineeName").val(traineeName);
+
+
+        if (hasFeedback === true || hasFeedback === "true") {
+
+            $("input[name='SessionCompleted'][value='" +
+                completed +
+                "']").prop("checked", true);
+
+            $("#IndividualFeedback").val(feedback);
+
+        }
+
+        else {
+
+            $("input[name='SessionCompleted']")
+                .prop("checked", false);
+
+            $("#IndividualFeedback").val("");
+
+        }
+
+
+        $("#feedbackModal").modal("show");
+
+    });
+
+
+    // Save Individual Feedback
+
+    $("#btnSaveIndividualFeedback").click(function () {
+
+        var sessionId =
+            $("#FeedbackSessionId").val();
+
+        var traineeId =
+            $("#FeedbackTraineeId").val();
+
+        var completed =
+            $("input[name='SessionCompleted']:checked").val();
+
+        var feedback =
+            $("#IndividualFeedback").val();
+
+
+        // Validation
+
+        if (completed === undefined) {
+
+            showMessage(
+                "Validation",
+                "Please select whether the session is completed."
+            );
+
+            return;
+
+        }
+
+
+        if ($.trim(feedback) === "") {
+
+            showMessage(
+                "Validation",
+                "Please enter feedback."
+            );
+
+            return;
+
+        }
+
+
+        $.ajax({
+
+            url: '@Url.Action("SaveFeedback", "TrainerIndividualSessionFeedback", new { area = "Trainer" })',
+
+            type: "POST",
+
+            data: {
+
+                sessionId: sessionId,
+
+                traineeId: traineeId,
+
+                sessionCompleted: completed,
+
+                feedback: feedback
+
+            },
+
+
+            success: function (response) {
+
+                if (response.success) {
+
+                    $("#feedbackModal").modal("hide");
+
+                    showMessage(
+                        "Success",
+                        response.message
+                    );
+
+                    $("#individualFeedbackGrid").trigger("reloadGrid");
+
+                }
+
+                else {
+
+                    showMessage(
+                        "Error",
+                        response.message
+                    );
+
+                }
+
+            },
+
+
+            error: function () {
+
+                showMessage(
+                    "Error",
+                    "Something went wrong while saving feedback."
+                );
+
+            }
+
+        });
+
+    });
+
+    </script>
+    ```
+
+}
