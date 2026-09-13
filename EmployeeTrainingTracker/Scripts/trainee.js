@@ -24,13 +24,17 @@ function showMessage(message, title, reloadPage) {
 
 
 // Save Trainee
+// Save Trainee
 $("#btnSaveTrainee").click(function () {
 
     $(".text-danger").text("");
 
-    var name = $("#TraineeName").val();
-    var email = $("#Email").val();
-    var phone = $("#Phone").val();
+    var name = $("#TraineeName").val().trim();
+    var email = $("#Email").val().trim();
+    var phone = $("#Phone").val().trim();
+    var department = $("#Department").val().trim();
+    var designation = $("#Designation").val().trim();
+    var joiningDate = $("#JoiningDate").val();
     var password = $("#Password").val();
     var confirmPassword = $("#ConfirmPassword").val();
 
@@ -45,14 +49,41 @@ $("#btnSaveTrainee").click(function () {
         $("#emailError").text("Enter email");
         isValid = false;
     }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        $("#emailError").text("Enter a valid email");
+        isValid = false;
+    }
 
     if (phone == "") {
         $("#phoneError").text("Enter phone number");
         isValid = false;
     }
+    else if (!/^\d{10}$/.test(phone)) {
+        $("#phoneError").text("Phone number must be 10 digits");
+        isValid = false;
+    }
+
+    if (department == "") {
+        $("#departmentError").text("Enter department");
+        isValid = false;
+    }
+
+    if (designation == "") {
+        $("#designationError").text("Enter designation");
+        isValid = false;
+    }
+
+    if (joiningDate == "") {
+        $("#joiningDateError").text("Select joining date");
+        isValid = false;
+    }
 
     if (password == "") {
         $("#passwordError").text("Enter password");
+        isValid = false;
+    }
+    else if (password.length < 6) {
+        $("#passwordError").text("Password must be at least 6 characters");
         isValid = false;
     }
 
@@ -73,9 +104,9 @@ $("#btnSaveTrainee").click(function () {
         TraineeName: name,
         Email: email,
         Phone: phone,
-        Department: $("#Department").val(),
-        Designation: $("#Designation").val(),
-        JoiningDate: $("#JoiningDate").val(),
+        Department: department,
+        Designation: designation,
+        JoiningDate: joiningDate,
         Password: password
     };
 

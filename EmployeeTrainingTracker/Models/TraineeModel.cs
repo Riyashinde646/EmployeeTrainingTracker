@@ -14,6 +14,7 @@ namespace EmployeeTrainingTracker.Models
 
         public string Password { get; set; }
 
+
         public string Phone { get; set; }
 
         public string Department { get; set; }

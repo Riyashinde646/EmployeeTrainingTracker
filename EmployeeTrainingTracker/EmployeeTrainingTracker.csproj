@@ -147,12 +147,14 @@
     <Compile Include="Controllers\IndividualSessionFeedbackController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\ManagerDashboardController.cs" />
     <Compile Include="Controllers\SessionReportController.cs" />
     <Compile Include="Controllers\TraineeController.cs" />
     <Compile Include="Controllers\TrainerManagementController.cs" />
     <Compile Include="Controllers\TrainingController.cs" />
     <Compile Include="DAL\AssessmentDAL.cs" />
     <Compile Include="DAL\IndividualSessionFeedbackDAL.cs" />
+    <Compile Include="DAL\ManagerDashboardDAL.cs" />
     <Compile Include="DAL\SessionReportDAL.cs" />
     <Compile Include="DAL\TraineeDAL.cs" />
     <Compile Include="DAL\TrainerDAL.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Models\AssignTrainingModel.cs" />
     <Compile Include="Models\IndividualSessionFeedbackModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ManagerDashboardModel.cs" />
     <Compile Include="Models\PendingAssessmentViewModel.cs" />
     <Compile Include="Models\SessionReportViewModel.cs" />
     <Compile Include="Models\Subtopic.cs" />
@@ -249,6 +252,7 @@
     <Content Include="Views\Shared\_TrainerLayout.cshtml" />
     <Content Include="Views\Shared\_TraineeLayout.cshtml" />
     <Content Include="Views\IndividualSessionFeedback\Index.cshtml" />
+    <Content Include="Views\ManagerDashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

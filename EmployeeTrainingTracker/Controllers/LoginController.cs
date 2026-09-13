@@ -34,7 +34,7 @@ namespace EmployeeTrainingTracker.Controllers
                 Session["Email"] = model.Email;
                 Session["Role"] = "Manager";
 
-                return RedirectToAction("Index", "Manager");
+                return RedirectToAction("Index", "ManagerDashboard");
             }
 
             // Trainer login

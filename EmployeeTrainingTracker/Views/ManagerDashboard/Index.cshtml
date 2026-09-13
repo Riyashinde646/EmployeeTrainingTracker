@@ -1,0 +1,66 @@
+﻿@model EmployeeTrainingTracker.Models.ManagerDashboardModel
+
+@{
+    ViewBag.Title = "Manager Dashboard";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+}
+
+
+<div class="row">
+
+    <!-- Total Trainers -->
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-users"></i> Total Trainers
+            </div>
+
+            <div class="panel-body text-center">
+                <h2>@Model.TotalTrainers</h2>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Total Trainees -->
+    <div class="col-md-3">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <i class="fa fa-user"></i> Total Trainees
+            </div>
+
+            <div class="panel-body text-center">
+                <h2>@Model.TotalTrainees</h2>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Total Assessments -->
+    <div class="col-md-3">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <i class="fa fa-pencil"></i> Assessments Done
+            </div>
+
+            <div class="panel-body text-center">
+                <h2>@Model.TotalAssessmentsDone</h2>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Completed Sessions -->
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <i class="fa fa-check"></i> Completed Sessions
+            </div>
+
+            <div class="panel-body text-center">
+                <h2>@Model.CompletedSessions</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
