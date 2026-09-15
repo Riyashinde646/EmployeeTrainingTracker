@@ -1,7 +1,89 @@
-﻿@{
-    ViewBag.Title = "Trainer Dashboard";
-    
-        Layout = "~/Views/Shared/_TrainerLayout.cshtml";
-    }
+﻿@model EmployeeTrainingTracker.Models.TrainerDashboardModel
 
-    <h2>Welcome to Trainer Dashboard</h2>
+@{
+    ViewBag.Title = "Trainer Dashboard";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<div class="container">
+
+    <h2>Trainer Dashboard</h2>
+
+    <hr />
+
+    <div class="row">
+
+        <!-- My Sessions -->
+
+        <div class="col-md-4">
+
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <i class="fa fa-book"></i>
+                    My Sessions
+                </div>
+
+                <div class="panel-body text-center">
+
+                    <h2>@Model.MySessions</h2>
+
+                    <p>Total Sessions</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Completed Sessions -->
+
+        <div class="col-md-4">
+
+            <div class="panel panel-success">
+
+                <div class="panel-heading">
+                    <i class="fa fa-check"></i>
+                    Completed Sessions
+                </div>
+
+                <div class="panel-body text-center">
+
+                    <h2>@Model.CompletedSessions</h2>
+
+                    <p>Completed</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Pending Sessions -->
+
+        <div class="col-md-4">
+
+            <div class="panel panel-warning">
+
+                <div class="panel-heading">
+                    <i class="fa fa-clock-o"></i>
+                    Pending Sessions
+                </div>
+
+                <div class="panel-body text-center">
+
+                    <h2>@Model.PendingSessions</h2>
+
+                    <p>Pending</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

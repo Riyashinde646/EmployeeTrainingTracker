@@ -3,4 +3,67 @@
     Layout = "~/Views/Shared/_TraineeLayout.cshtml";
 }
 
-<h2>Welcome to Trainee Dashboard</h2>
+<div class="container">
+
+    <h2>Trainee Dashboard</h2>
+
+    <hr />
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Overall Training Plan
+                </div>
+
+                <div class="panel-body">
+                    <p>View your training plan.</p>
+
+                    <a href="@Url.Action("TrainingPlanning", "TraineeDashboard", new { area = "Trainee" })"
+                       class="btn btn-primary">
+                        View
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    My Marks
+                </div>
+
+                <div class="panel-body">
+                    <p>View your assessment marks.</p>
+
+                    <a href="@Url.Action("MyMarks", "TraineeDashboard", new { area = "Trainee" })"
+                       class="btn btn-success">
+                        View
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    Resources
+                </div> 
+
+                <div class="panel-body">
+                    <p>View training resources.</p>
+
+                    <a href="@Url.Action("Resources", "TraineeDashboard", new { area = "Trainee" })"
+                       class="btn btn-warning">
+                        View
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

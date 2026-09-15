@@ -63,7 +63,7 @@
 
             <h4>Trainer Panel</h4>
 
-            <a href="@Url.Action("Index", "TrainerDashboard")"
+            <a href="@Url.Action("Index", "TrainerDashboard", new { area = "Trainer" })"
                class="@(ViewContext.RouteData.Values["controller"].ToString() == "TrainerDashboard" ? "active" : "")">
                 <span class="glyphicon glyphicon-dashboard"></span>
                 Dashboard

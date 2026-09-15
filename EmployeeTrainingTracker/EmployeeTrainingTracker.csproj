@@ -158,6 +158,7 @@
     <Compile Include="DAL\SessionReportDAL.cs" />
     <Compile Include="DAL\TraineeDAL.cs" />
     <Compile Include="DAL\TrainerDAL.cs" />
+    <Compile Include="DAL\TrainerDashboardDAL.cs" />
     <Compile Include="DAL\TrainingDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -172,6 +173,7 @@
     <Compile Include="Models\Subtopic.cs" />
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\TraineeModel.cs" />
+    <Compile Include="Models\TrainerDashboardModel.cs" />
     <Compile Include="Models\TrainerModel.cs" />
     <Compile Include="Models\Training.cs" />
     <Compile Include="Models\TrainingPlanViewModel.cs" />

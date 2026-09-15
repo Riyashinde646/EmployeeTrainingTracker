@@ -11,7 +11,15 @@ namespace EmployeeTrainingTracker.Areas.Trainer.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            int trainerId = Convert.ToInt32(Session["TrainerId"]);
+
+            TrainerDashboardDAL dal =
+                new TrainerDashboardDAL();
+
+            var dashboard =
+                dal.GetDashboardCounts(trainerId);
+
+            return View(dashboard);
         }
 
 
